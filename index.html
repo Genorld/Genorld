@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genorld Ryan — Developer & Creator</title>
+  <meta name="description" content="Genorld Ryan — developer, designer and digital creator portfolio.">
+  <link rel="icon" type="image/png" href="./genorld-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black: #090b10;
+      --panel: #10141d;
+      --panel-2: #151a25;
+      --blue: #3f78ff;
+      --blue-bright: #78a1ff;
+      --line: rgba(255,255,255,.10);
+      --white: #f7f8fb;
+      --muted: #9ba3b3;
+    }
+    * {
+      box-sizing: border-box;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--black);
+      color: var(--white);
+      font-family: "Inter", sans-serif;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    ::selection { background: var(--blue); color: white; }
+
+    .shell { width: min(1240px, calc(100% - 56px)); margin-inline: auto; }
+    .topbar {
+      position: fixed;
+      z-index: 50;
+      top: 14px;
+      left: 50%;
+      width: min(1240px, calc(100% - 56px));
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(9,11,16,.86);
+      box-shadow:
+        0 14px 40px rgba(0,0,0,.28),
+        0 10px 38px rgba(63,120,255,.28),
+        0 0 18px rgba(63,120,255,.20);
+      backdrop-filter: blur(16px);
+      padding: 0 12px 0 10px;
+      transform: translateX(-50%);
+    }
+    .topbar::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: -16px 4%;
+      border-radius: 20px;
+      background: radial-gradient(ellipse at 50% 100%, rgba(63,120,255,.55), rgba(63,120,255,.12) 42%, transparent 72%);
+      filter: blur(10px);
+      pointer-events: none;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+    }
+    .brand-box {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--blue);
+      border-radius: 50%;
+      background: var(--black);
+      object-fit: cover;
+    }
+    .nav { display: flex; align-items: center; gap: 26px; }
+    .nav a {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      transition: color .2s;
+    }
+    .nav a:hover, .nav a.active { color: white; }
+    .nav .contact-link {
+      color: white;
+      background: var(--blue);
+      border-radius: 4px;
+      padding: 12px 16px;
+    }
+    .menu { display: none; border: 0; background: transparent; color: white; }
+    main { padding-top: 92px; }
+    .quick-links {
+      position: fixed;
+      z-index: 45;
+      right: 18px;
+      bottom: 18px;
+      display: grid;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(9,11,16,.88);
+      box-shadow: 0 12px 36px rgba(0,0,0,.26);
+      backdrop-filter: blur(14px);
+      overflow: hidden;
+    }
+    .quick-links a {
+      min-width: 112px;
+      border-bottom: 1px solid var(--line);
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      transition: color .2s, background .2s;
+    }
+    .quick-links a:last-child { border-bottom: 0; }
+    .quick-links a:hover { color: white; background: rgba(63,120,255,.16); }
+    .instagram-float {
+      position: fixed;
+      z-index: 46;
+      right: 18px;
+      bottom: 172px;
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      background: linear-gradient(140deg, #feda75 0%, #d62976 48%, #962fbf 75%, #4f5bd5 100%);
+      box-shadow: 0 8px 26px rgba(214,41,118,.34);
+      color: white;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .instagram-float:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 32px rgba(214,41,118,.46);
+    }
+    .instagram-float:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+    .instagram-float svg { width: 25px; height: 25px; }
+    .linkedin-float {
+      position: fixed;
+      z-index: 46;
+      right: 18px;
+      bottom: 244px;
+      width: 54px;
+      height: 54px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 50%;
+      background: #0a66c2;
+      box-shadow: 0 8px 26px rgba(10,102,194,.35);
+      color: white;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .linkedin-float:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 12px 32px rgba(10,102,194,.48);
+    }
+    .linkedin-float:focus-visible { outline: 3px solid white; outline-offset: 3px; }
+    .linkedin-float svg { width: 25px; height: 25px; }
+
+    .hero {
+      min-height: 650px;
+      display: grid;
+      grid-template-columns: 58% 42%;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-copy {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 70px 70px 70px 0;
+    }
+    .status {
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 18px var(--blue);
+    }
+    h1, h2, h3 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+    }
+    h1 {
+      max-width: 720px;
+      font-size: clamp(64px, 7vw, 96px);
+      line-height: .91;
+      letter-spacing: -7px;
+    }
+    h1 span {
+      color: transparent;
+      -webkit-text-stroke: 1.5px var(--blue-bright);
+    }
+    .hero-copy > p {
+      max-width: 510px;
+      margin: 28px 0 34px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.75;
+    }
+    .hero-actions { display: flex; gap: 12px; }
+    .button {
+      min-height: 52px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      border: 1px solid var(--blue);
+      border-radius: 4px;
+      padding: 0 18px;
+      background: var(--blue);
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .button.secondary { border-color: var(--line); background: transparent; }
+    .arrow {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-left: 1px solid rgba(255,255,255,.22);
+    }
+    .hero-visual {
+      min-height: 650px;
+      position: relative;
+      overflow: hidden;
+      border-left: 1px solid var(--line);
+    }
+    .hero-visual::before {
+      content: "";
+      position: absolute;
+      width: 430px;
+      height: 430px;
+      right: -110px;
+      bottom: -120px;
+      border: 1px solid rgba(63,120,255,.5);
+      border-radius: 50%;
+      box-shadow: 0 0 90px rgba(63,120,255,.16), inset 0 0 90px rgba(63,120,255,.05);
+    }
+    .hero-portrait {
+      position: absolute;
+      inset: 54px 34px 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-bottom: 0;
+      clip-path: polygon(12% 0, 100% 0, 100% 100%, 0 100%, 0 12%);
+    }
+    .hero-portrait img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.08);
+    }
+    .visual-code {
+      position: absolute;
+      z-index: 3;
+      left: 8px;
+      bottom: 36px;
+      min-width: 210px;
+      border: 1px solid var(--line);
+      background: rgba(9,11,16,.88);
+      backdrop-filter: blur(12px);
+      padding: 16px;
+      font-family: monospace;
+      font-size: 12px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+    .visual-code b { color: var(--blue-bright); }
+    .index-mark {
+      position: absolute;
+      z-index: 3;
+      right: 20px;
+      top: 18px;
+      color: rgba(255,255,255,.42);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 12px;
+    }
+
+    section { scroll-margin-top: 24px; }
+    .section { padding: 110px 0; border-bottom: 1px solid var(--line); }
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 38px;
+    }
+    .section-kicker {
+      display: block;
+      margin-bottom: 12px;
+      color: var(--blue-bright);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .section h2 {
+      font-size: clamp(42px, 5vw, 68px);
+      line-height: 1;
+      letter-spacing: -4px;
+    }
+    .section-head p {
+      max-width: 390px;
+      margin: 0 0 4px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: 1.35fr .65fr;
+      grid-template-rows: 290px 290px;
+      gap: 14px;
+    }
+    .project {
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+    .project:first-child { grid-row: 1 / 3; }
+    .project-preview {
+      height: 100%;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(rgba(63,120,255,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(63,120,255,.05) 1px, transparent 1px),
+        var(--panel);
+      background-size: 24px 24px;
+    }
+    .project:first-child .project-preview { background-size: 30px 30px; }
+    .project-preview > img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .browser {
+      width: 72%;
+      height: 58%;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 7px;
+      background: #0b0e14;
+      box-shadow: 18px 18px 0 rgba(63,120,255,.12);
+      padding: 12px;
+    }
+    .browser-bar {
+      height: 12px;
+      border-bottom: 1px solid var(--line);
+      margin: -12px -12px 16px;
+      padding: 5px;
+      display: flex;
+      gap: 4px;
+    }
+    .browser-bar i { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); }
+    .browser-layout {
+      height: calc(100% - 28px);
+      display: grid;
+      grid-template-columns: 34% 66%;
+      gap: 10px;
+    }
+    .browser-layout::before {
+      content: "";
+      border: 1px solid rgba(63,120,255,.3);
+      background: linear-gradient(135deg, rgba(63,120,255,.65), transparent 70%);
+    }
+    .browser-layout::after {
+      content: "";
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,.10) 0 7px, transparent 7px 18px);
+    }
+    .project:nth-child(2) .browser { width: 68%; height: 78%; }
+    .project:nth-child(3) .browser { width: 68%; height: 78%; transform: rotate(-2deg); }
+    .project-meta {
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px;
+      background: linear-gradient(transparent, rgba(9,11,16,.95) 75%);
+    }
+    .project-meta h3 { font-size: 18px; }
+    .project-meta p { margin: 5px 0 0; color: var(--muted); font-size: 12px; }
+    .project-meta > span {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+    }
+    .project-visit {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--blue);
+      border-radius: 4px;
+      background: var(--blue);
+      padding: 10px 12px;
+      color: white;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .project-visit:hover { background: #2e66ed; }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr 1fr;
+      grid-auto-rows: 290px;
+      gap: 14px;
+    }
+    .gallery-item {
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+    .gallery-item:first-child { grid-row: span 2; }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: grayscale(100%) contrast(1.05);
+      transition: filter .35s, transform .5s;
+    }
+    .gallery-item:hover img { filter: grayscale(25%) contrast(1.05); transform: scale(1.025); }
+    .gallery-item span {
+      position: absolute;
+      left: 16px;
+      bottom: 14px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 4px;
+      background: rgba(9,11,16,.72);
+      backdrop-filter: blur(8px);
+      padding: 8px 10px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 14px;
+    }
+    .about-photo {
+      min-height: 460px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      filter: grayscale(100%);
+    }
+    .about-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 44px;
+    }
+    .about-panel h2 {
+      max-width: 650px;
+      font-size: 54px;
+      line-height: 1.03;
+      letter-spacing: -3px;
+    }
+    .about-panel p {
+      max-width: 590px;
+      margin: 22px 0 28px;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid var(--line);
+      padding-top: 22px;
+    }
+    .about-stats strong {
+      display: block;
+      color: var(--blue-bright);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 28px;
+    }
+    .about-stats span { color: var(--muted); font-size: 12px; }
+
+    .support-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 28px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 32px;
+    }
+    .support-number {
+      color: var(--blue-bright);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .support-grid h3 { margin: 12px 0 8px; font-size: 24px; }
+    .support-grid p { max-width: 580px; margin: 0; color: var(--muted); line-height: 1.65; }
+    .donate-dialog {
+      width: min(440px, calc(100% - 32px));
+      border: 1px solid rgba(120,161,255,.35);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--white);
+      padding: 28px;
+      box-shadow: 0 24px 90px rgba(0,0,0,.65), 0 0 48px rgba(63,120,255,.2);
+    }
+    .donate-dialog::backdrop { background: rgba(0,0,0,.76); backdrop-filter: blur(5px); }
+    .donate-dialog-head { display: flex; align-items: center; justify-content: space-between; }
+    .donate-dialog-close {
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: transparent;
+      color: var(--white);
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .donate-dialog h2 { margin-top: 20px; font-size: 30px; letter-spacing: -1px; }
+    .donate-dialog > p { color: var(--muted); line-height: 1.65; }
+    .donate-details { display: grid; gap: 10px; margin: 24px 0; }
+    .donate-details > div {
+      display: flex;
+      justify-content: space-between;
+      gap: 14px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--black);
+      padding: 14px;
+      font-size: 13px;
+    }
+    .donate-details dt { color: var(--muted); }
+    .donate-details dd { margin: 0; text-align: right; font-weight: 700; overflow-wrap: anywhere; }
+    .donate-dialog .button { width: 100%; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+    }
+    .contact-grid h2 {
+      font-size: clamp(48px, 6vw, 78px);
+      line-height: .95;
+      letter-spacing: -5px;
+    }
+    .contact-details {
+      display: grid;
+      gap: 18px;
+      margin-top: 34px;
+    }
+    .contact-detail {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 12px;
+      align-items: baseline;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 14px;
+      font-size: 14px;
+    }
+    .contact-detail span { color: var(--muted); }
+    .contact-detail .contact-value { color: var(--blue-bright); overflow-wrap: anywhere; }
+    .contact-form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      background: var(--panel);
+      color: white;
+      padding: 16px;
+      outline: none;
+    }
+    .contact-form input:focus, .contact-form textarea:focus { border-color: var(--blue); }
+    .contact-form textarea { height: 130px; resize: vertical; }
+    .contact-form .full { grid-column: 1 / -1; }
+    .contact-note {
+      grid-column: 1 / -1;
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    footer {
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    footer a { color: var(--white); }
+
+    @media (max-width: 900px) {
+      .shell { width: calc(100% - 32px); }
+      .menu { display: block; }
+      .topbar { width: calc(100% - 32px); }
+      .nav {
+        display: none;
+        position: absolute;
+        z-index: 20;
+        top: 70px;
+        left: 0;
+        right: 0;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 18px;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--panel);
+        padding: 20px;
+      }
+      .nav.open { display: flex; }
+      .nav .contact-link { text-align: center; }
+      .hero { grid-template-columns: 55% 45%; }
+      .hero-copy { padding-right: 30px; }
+      h1 { font-size: 64px; }
+      .hero-portrait { inset: 54px 20px 0; }
+      .project-grid { grid-template-columns: 1fr 1fr; }
+      .project:first-child { grid-row: auto; grid-column: 1 / -1; }
+      .gallery { grid-template-columns: 1fr 1fr; }
+      .gallery-item:first-child { grid-row: span 2; }
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-grid { gap: 40px; }
+      .quick-links { right: 10px; bottom: 10px; }
+      .instagram-float { right: 10px; bottom: 150px; }
+      .linkedin-float { right: 10px; bottom: 214px; }
+    }
+    @media (max-width: 680px) {
+      .shell { width: calc(100% - 24px); }
+      .topbar { width: calc(100% - 24px); height: 60px; top: 8px; }
+      main { padding-top: 82px; }
+      .brand { font-size: 16px; }
+      .brand-box { width: 36px; height: 36px; }
+      .quick-links { display: none; }
+      .instagram-float { right: 12px; bottom: 18px; }
+      .linkedin-float { right: 12px; bottom: 84px; }
+      .hero { display: block; }
+      .hero-copy { min-height: 520px; padding: 54px 4px; }
+      h1 { font-size: 50px; letter-spacing: -4px; }
+      .hero-copy > p { font-size: 15px; }
+      .hero-visual { min-height: 500px; border-left: 0; border-top: 1px solid var(--line); }
+      .hero-portrait { inset: 35px 24px 0; }
+      .section { padding: 76px 0; }
+      .section-head { display: block; }
+      .section h2 { margin-bottom: 14px; font-size: 42px; letter-spacing: -3px; }
+      .project-grid { grid-template-columns: 1fr; grid-template-rows: 330px 280px 280px; }
+      .project:first-child { grid-column: auto; }
+      .gallery { grid-template-columns: 1fr; grid-auto-rows: 300px; }
+      .gallery-item:first-child { grid-row: auto; }
+      .about-photo { min-height: 360px; }
+      .about-panel { padding: 28px; }
+      .about-panel h2 { font-size: 38px; }
+      .support-grid { grid-template-columns: 1fr; padding: 24px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 34px; }
+      .contact-grid h2 { font-size: 50px; letter-spacing: -3px; }
+      .contact-form { grid-template-columns: 1fr; }
+      .contact-form .full { grid-column: auto; }
+      footer { height: 110px; flex-direction: column; align-items: flex-start; justify-content: center; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell topbar">
+    <a class="brand" href="#home" aria-label="Genorld Ryan home"><img class="brand-box" src="./genorld-logo.png" alt="">Genorld Ryan</a>
+    <button class="menu" type="button" aria-expanded="false" aria-label="Open menu">
+      <svg width="25" height="25" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </button>
+    <nav class="nav" id="nav" aria-label="Main navigation">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#support">Support</a>
+      <a class="contact-link" href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <aside class="quick-links" aria-label="Quick links">
+    <a href="#projects">01 Projects</a>
+    <a href="#gallery">02 Gallery</a>
+    <a href="#contact">03 Contact</a>
+  </aside>
+  <a class="instagram-float" href="https://www.instagram.com/_col.im_gee/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Open Genorld Ryan's Instagram profile">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/>
+      <circle cx="12" cy="12" r="4"/>
+      <circle cx="17.8" cy="6.4" r="1" fill="currentColor" stroke="none"/>
+    </svg>
+  </a>
+  <a class="linkedin-float" href="https://www.linkedin.com/in/genorld-ryan-062226395/" target="_blank" rel="noopener noreferrer" aria-label="Open Genorld Ryan's LinkedIn profile">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <circle cx="5" cy="5" r="2"/>
+      <path d="M3.2 9h3.6v12H3.2zM9 9h3.5v1.65h.05A3.85 3.85 0 0 1 16 8.7c3.65 0 4.3 2.4 4.3 5.5V21h-3.65v-6.05c0-1.45-.03-3.3-2.02-3.3-2.02 0-2.33 1.58-2.33 3.2V21H9z"/>
+    </svg>
+  </a>
+
+  <main>
+    <section class="hero shell" id="home">
+      <div class="hero-copy">
+        <div class="status"><span class="status-dot"></span>Available for new projects</div>
+        <h1>Digital work.<br><span>Built to last.</span></h1>
+        <p>I'm Genorld Ryan — a developer and digital creator building sharp, accessible experiences for the modern web.</p>
+        <div class="hero-actions">
+          <a class="button" href="#projects">Explore work <span class="arrow">↗</span></a>
+          <a class="button secondary" href="#gallery">View gallery</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <span class="index-mark">01 / PROFILE</span>
+        <div class="hero-portrait">
+          <img src="./genorld-profile.jpeg" alt="Genorld Ryan profile portrait">
+        </div>
+        <div class="visual-code">
+          <b>genorld</b>.<span>create</span>()<br>
+          <span>&nbsp;→ thoughtful</span><br>
+          <span>&nbsp;→ useful</span><br>
+          <span>&nbsp;→ complete</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="projects">
+      <div class="section-head">
+        <div><span class="section-kicker">01 — Selected work</span><h2>Projects</h2></div>
+        <p>A focused selection of interfaces and digital products, designed around real-world use.</p>
+      </div>
+      <div class="project-grid">
+        <article class="project">
+          <div class="project-preview"><img src="./kojack-project.png" alt="KOJACK digital page for business advertisements" loading="lazy"></div>
+          <div class="project-meta">
+            <div><h3>KOJACK</h3><p>Digital page for business advertisements</p></div>
+            <a class="project-visit" href="https://kojack.onrender.com/" target="_blank" rel="noopener noreferrer">Visit <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+        <a class="project" href="#">
+          <div class="project-preview"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><div class="browser-layout"></div></div></div>
+          <div class="project-meta"><div><h3>Brand System</h3><p>Identity · Interface</p></div><span>↗</span></div>
+        </a>
+        <a class="project" href="#">
+          <div class="project-preview"><div class="browser"><div class="browser-bar"><i></i><i></i><i></i></div><div class="browser-layout"></div></div></div>
+          <div class="project-meta"><div><h3>Creative App</h3><p>UX/UI · Web</p></div><span>↗</span></div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section shell" id="gallery">
+      <div class="section-head">
+        <div><span class="section-kicker">02 — Visual journal</span><h2>Gallery</h2></div>
+        <p>People, places and moments behind the work.</p>
+      </div>
+      <div class="gallery">
+        <a class="gallery-item" href="./genorld-profile.jpeg" target="_blank" rel="noreferrer">
+          <img src="./genorld-profile.jpeg" alt="Genorld Ryan portrait" loading="lazy"><span>Genorld Ryan</span>
+        </a>
+        <a class="gallery-item" href="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=90" target="_blank" rel="noreferrer">
+          <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=900&q=85" alt="Creative workspace" loading="lazy"><span>Studio</span>
+        </a>
+        <a class="gallery-item" href="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1400&q=90" target="_blank" rel="noreferrer">
+          <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=85" alt="Developer workspace" loading="lazy"><span>Build</span>
+        </a>
+        <a class="gallery-item" href="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1400&q=90" target="_blank" rel="noreferrer">
+          <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=900&q=85" alt="Team collaboration" loading="lazy"><span>Collaboration</span>
+        </a>
+        <a class="gallery-item" href="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=90" target="_blank" rel="noreferrer">
+          <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=85" alt="Life outdoors" loading="lazy"><span>Outside</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section shell" id="about">
+      <div class="section-head">
+        <div><span class="section-kicker">03 — About</span><h2>Behind the screen</h2></div>
+      </div>
+      <div class="about-grid">
+        <div class="about-photo">
+          <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=85" alt="Creative workspace" loading="lazy">
+        </div>
+        <div class="about-panel">
+          <div>
+            <h2>I make complex things feel simple.</h2>
+            <p>I combine development, design and a practical creative process to build digital products that are clear, distinctive and easy to use.</p>
+          </div>
+          <div class="about-stats">
+            <div><strong>3+</strong><span>Years building</span></div>
+            <div><strong>20+</strong><span>Projects shipped</span></div>
+            <div><strong>100%</strong><span>Focused on quality</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="support">
+      <div class="section-head">
+        <div><span class="section-kicker">04 — Your support matters</span><h2>Support me</h2></div>
+        <p>If you enjoy my work, your contribution helps me keep creating and building.</p>
+      </div>
+      <div class="support-grid">
+        <div>
+          <span class="support-number">Thank you for being here</span>
+          <h3>Help me keep creating.</h3>
+          <p>Any support is appreciated. Tap Donate to see the contribution details.</p>
+        </div>
+        <button class="button" type="button" id="donateButton">Donate <span class="arrow">↗</span></button>
+      </div>
+    </section>
+
+    <dialog class="donate-dialog" id="donateDialog" aria-labelledby="donateTitle">
+      <div class="donate-dialog-head">
+        <span class="section-kicker">Support Genorld</span>
+        <button class="donate-dialog-close" type="button" aria-label="Close donation details">&times;</button>
+      </div>
+      <h2 id="donateTitle">Thank you for your support.</h2>
+      <p>Use these details to send your contribution:</p>
+      <dl class="donate-details">
+        <div><dt>M-Pesa number</dt><dd>0758206146</dd></div>
+        <div><dt>Name</dt><dd>LAUREN FRANK MBUHILO</dd></div>
+      </dl>
+      <button class="button" type="button" id="closeDonateDialog">Done</button>
+    </dialog>
+
+    <section class="section shell" id="contact">
+      <div class="contact-grid">
+        <div>
+          <span class="section-kicker">05 — Start a conversation</span>
+          <h2>Let's work on something great.</h2>
+          <div class="contact-details">
+            <div class="contact-detail"><span>Email</span><span class="contact-value">genorldryan01@gmail.com</span></div>
+            <div class="contact-detail"><span>Phone</span><span class="contact-value">0758206146</span></div>
+            <div class="contact-detail"><span>Location</span><span>Fixed on site</span></div>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <input class="full" type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="Email address" required>
+          <input type="tel" name="phone" placeholder="Phone number">
+          <textarea class="full" name="message" placeholder="Tell me about your project" required></textarea>
+          <button class="button" type="submit">Continue to WhatsApp <span class="arrow">↗</span></button>
+          <p class="contact-note" id="whatsappStatus" aria-live="polite">Your message will open in WhatsApp for you to review and send.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">
+    <span>© <span id="year"></span> Genorld Ryan</span>
+    <a href="#home">Back to top ↑</a>
+  </footer>
+
+  <script>
+    const menu = document.querySelector(".menu");
+    const nav = document.querySelector("#nav");
+    menu.addEventListener("click", () => {
+      const open = nav.classList.toggle("open");
+      menu.setAttribute("aria-expanded", String(open));
+    });
+    nav.addEventListener("click", (event) => {
+      if (event.target.matches("a")) {
+        nav.classList.remove("open");
+        menu.setAttribute("aria-expanded", "false");
+      }
+    });
+    const navLinks = [...nav.querySelectorAll("a[href^='#']:not(.contact-link)")];
+    const sections = [...document.querySelectorAll("main section[id]")];
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.hash === `#${visible.target.id}`);
+      });
+    }, { rootMargin: "-25% 0px -60%", threshold: [0, .25, .5] });
+    sections.forEach((section) => sectionObserver.observe(section));
+    const donateDialog = document.querySelector("#donateDialog");
+    document.querySelector("#donateButton").addEventListener("click", () => donateDialog.showModal());
+    donateDialog.querySelector(".donate-dialog-close").addEventListener("click", () => donateDialog.close());
+    document.querySelector("#closeDonateDialog").addEventListener("click", () => donateDialog.close());
+    document.querySelector("#contactForm").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const fields = new FormData(form);
+      const message = [
+        `Portfolio inquiry from ${fields.get("name")}`,
+        `Email: ${fields.get("email")}`,
+        `Phone: ${fields.get("phone") || "Not provided"}`,
+        "",
+        fields.get("message"),
+      ].join("\n");
+      const whatsappUrl = `https://wa.me/255758206146?text=${encodeURIComponent(message)}`;
+      const whatsappWindow = window.open(whatsappUrl, "_blank");
+      if (whatsappWindow) {
+        whatsappWindow.opener = null;
+        document.querySelector("#whatsappStatus").textContent = "WhatsApp opened. Review the message and tap Send to deliver it.";
+      } else {
+        window.location.assign(whatsappUrl);
+      }
+    });
+    document.querySelector("#year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
